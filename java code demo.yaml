@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  description: 
+    Demo Microservice REST API for JAVA Code @ IBM
+  version: 1.0.0
+  title: JAVA Code @ IBM Demo
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: pacoh@mx1.ibm.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+host: ibm-cloud
+basePath: /v1
+tags:
+  - name: employee
+    description: CRUD service for employee entity
+schemes:
+  - http
+paths:
+  /employee:
+    post:
+      tags:
+        - employee
+      summary: Create employee
+      description: Create employee
+      operationId: createEmployee
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: employee
+          description: Employee data
+          schema:
+            $ref: '#/definitions/Employee'
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Employee'
+        '500':
+          description: Can't create employee data
+    put:
+      tags:
+        - employee
+      summary: Update employee
+      description: Update employee
+      operationId: updateEmployee
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: employee
+          description: Employee data
+          schema:
+            $ref: '#/definitions/Employee'
+      responses:
+        '201':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Employee'
+        '500':
+          description: Can't update employee data
+  /employee/{id}:
+    get:
+      tags:
+        - employee
+      summary: Get employee
+      description: Get employee by id
+      operationId: getEmployee
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Employee id to retrieve details
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Employee'
+        '404':
+          description: Employee not found
+    delete:
+      tags:
+        - employee
+      summary: Delete employee
+      description: Delete employee by id
+      operationId: deleteEmployee
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: Employee id to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Employee'
+        '404':
+          description: Employee not found
+definitions:
+  Employee:
+    type: object
+    properties:
+      name:
+        type: string
+      employeeId:
+        type: integer
+        format: int64
+      email:
+        type: string
+        format: email
+      manager:
+        type: string
+      role:
+        type: string
+      country:
+        type: string
+    xml:
+      name: Employee
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
